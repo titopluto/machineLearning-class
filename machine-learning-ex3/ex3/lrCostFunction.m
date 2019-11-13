@@ -36,14 +36,19 @@ grad = zeros(size(theta));
 %           grad = grad + YOUR_CODE_HERE (using the temp variable)
 %
 
+% hx = g(z) .. z = theta'.x
+z = X * theta ;
+hx = sigmoid(z) ;
+ 
+J_unreg = ( 1/m * (-y' * log(hx) - (1-y)' * log(1-hx)) ) ; % unregulaized cost
+J = J_unreg  + (lambda/(2*m) * sum(theta(2:end) .^ 2)) ;
 
+grad_unreg = 1/m * ( X' * (hx - y) ) ; % unreglarized gradient
 
+temp = theta ;
+temp(1) = 0 ; % because we don't add anything for j = 0  
 
-
-
-
-
-
+grad = grad_unreg + ( (lambda/m) * temp );
 
 % =============================================================
 

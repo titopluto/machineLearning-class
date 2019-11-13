@@ -23,5 +23,29 @@ p = zeros(size(X, 1), 1);
 
 % =========================================================================
 
+% a1 = [ones(m, 1), X];
+% z2 = Theta1 * a1';
+%
+% a2 = sigmoid(z2);
+% a2 = [ones(1,size(a2,2)); a2] ;
+% 
+% z3 = Theta2 * a2;
+% a3 = sigmoid(z3) ;
+% 
+% a3 = a3';
+
+
+a1 = [ones(m, 1), X];           % a1 = X ==> input layer  (addded bias unit)
+
+z2 = a1 * Theta1';                
+a2 = sigmoid(z2);                % a2 ==> first hidden layer
+a2 = [ones(size(a2,1),1) a2];   % added bias unit 
+
+z3 = a2 * Theta2';
+a3 = sigmoid(z3);                % a3 ==> output layer ==> hx
+
+hx = a3;
+
+[value, p] = max(hx, [], 2);    % value = max value per row, p = index of max value per row
 
 end

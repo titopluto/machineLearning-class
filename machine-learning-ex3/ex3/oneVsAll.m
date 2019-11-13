@@ -49,16 +49,23 @@ X = [ones(m, 1) X];
 %                 initial_theta, options);
 %
 
+initial_theta = zeros(n+1, 1); % +1 because of of theta(0) which is 1
+
+options = optimset('GradObj', 'on', 'MaxIter', 50);
+
+%       we use y==c to get the vector of 1 and zeros, for one classifier,
+%       c will be 1,2,3... 10 
+
+% all_theta is a 10 x 401 vector  ==> represents all theta for all classifiers, which is 10
+% initial_theta is a 401 x 1 vector ==> represents theta for one classifier
 
 
-
-
-
-
-
-
-
-
+for c = 1:num_labels
+    % for every classifer, we update the particular theta for that
+    % classifer and update the overal theta(all_theta)
+    
+    [all_theta(c, :)] =  fmincg(@(t)(lrCostFunction(t, X, (y == c), lambda)), initial_theta, options);
+end
 
 % =========================================================================
 
